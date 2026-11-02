@@ -1,10 +1,14 @@
 '''
-This file will contain your the code for your problems. 
+This file contains code for PacMan game problem. 
+
+THe two players, Pacman and Ghost takes turns to play the game starting in a 3x3 grid in random position
+Pacman wins by collecting all the pellets   
+Ghost wins if it eats the PacMan before he can collects all the pellets
 '''
 
 import numpy as np
 import cv2
-
+import random
 class Game:
     def __init__(self, problem, pZero, pOne,verbose=True):
       self.problem = problem      
@@ -110,3 +114,18 @@ class TicTacToe:
                
       cv2.imshow('TicTacToe',screen)
       cv2.waitKey(ms)
+
+class PacManState:
+
+   def __init__(self, pacman, ghost, pellets, turn = 0, moves = 0):
+      self.pacman = pacman
+      self.ghost = ghost
+      self.pellets = pellets
+      self.turn = turn
+      self.moves = moves
+
+   def __str__(self):
+      grid = np.where(self.pellets, 'o', '-')
+      grid[self.pacman] = 'P'
+      grid[self.ghost] = 'X' if self.ghost == self.pacman else 'G'
+      return '\n'.join(' '.join(row) for row in grid)
