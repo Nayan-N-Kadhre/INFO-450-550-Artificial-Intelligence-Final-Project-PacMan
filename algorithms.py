@@ -1,12 +1,10 @@
 '''
-This file will contain implementations of each algorithm/agent type.
+This file will contain implementations of a Greedy Agent.
 '''
 import random
 
-class RandomAgent:
+class GreedyAgent:
   def __str__(self):
-    return "Random Agent"
-  def getMove(self, problem):
-    moves = problem.getLegalMoves()
-    return moves[random.randrange(len(moves))]
-  
+    return "Greedy Agent"
+
+  # def getMove(self, problem):
