@@ -62,3 +62,27 @@ class PacMan:
       pellets[ghost] = False
       self.state = PacManState(pacman, ghost, pellets)
 
+   def showState(self, ms=600, state=None):
+
+      if state is None:
+         state = self.state
+      
+      img = np.zeros(360, 360, 3)
+      
+      for i in range(1, 3):
+         cv2.line(img, (i * 120, 0), (i * 120, 360), (255, 255, 255), 2)
+         cv2.line(img, (0, i * 120), (360, i * 120), (255, 255, 255), 2)
+
+      def center(square):
+         return (square[1] * 120 + 60, square[0] * 120 + 60)
+
+      for r in range(3):
+         for c in range(3):
+            if state.pellets[r, c]:
+               cv2.circle(img, center((r, c)), 12, (255, 255, 255), -1)
+      cv2.circle(img, center(state.pacman), 45, (0, 255, 255), -1)
+      cv2.circle(img, center(state.ghost), 45, (255, 255, 255), -1)
+      cv2.imshow('Pac-Man', img)
+      cv2.waitKey(ms)
+
+
