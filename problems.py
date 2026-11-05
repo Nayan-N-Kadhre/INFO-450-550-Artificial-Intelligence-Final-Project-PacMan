@@ -85,4 +85,24 @@ class PacMan:
       cv2.imshow('Pac-Man', img)
       cv2.waitKey(ms)
 
+   MOVES = {'Up': (-1, 0), 'Down': (1, 0), 'Left': (0, -1), 'Right': (0, 1)}
+
+   def getLegalMoves(self, state=None):
+      if state is None:
+         state = self.state
+      if state.turn == 0:
+         r, c = state.pacman
+      else:
+         r, c = state.ghost
+      
+      legalMoves = []
+      for move, (dr, dc) in self.MOVES.items():
+         newRow = r + dr
+         newCol = c + dc
+         if 0 <= newRow < 3 and 0 <= newCol < 3:
+            legalMoves.append(move)
+      return legalMoves
+
+   
+
 
