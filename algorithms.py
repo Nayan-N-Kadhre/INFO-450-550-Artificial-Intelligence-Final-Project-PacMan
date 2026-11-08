@@ -1,5 +1,5 @@
 '''
-This file will contain implementations of a Greedy Agent.
+This file contains implementation of a Greedy Agent.
 '''
 import random
 
