@@ -39,7 +39,9 @@ class Game:
       if self.verbose:
          self.problem.showState(4000)
       return wIndex
-         
+
+def distance(a, b):
+   return abs(a[0] - b[0]) + abs(a[1] - b[1])
 class PacManState:
 
    def __init__(self, pacman, ghost, pellets, turn=0, moves=0):
@@ -128,6 +130,41 @@ class PacMan:
 
    def isTerminal(self, state = None):
       return self.getWinner(state) != -1
+   
+
+   def evaluate(self, state, player):
+      winner = self.getWinner(state)
+
+      if player == 1:
+         if winner == 1:
+            return 1000
+         else:
+            gap = distance(state.ghost, state.pacman)
+         return -gap
+
+      if winner == 0: 
+         return 1000
+      if winner == 1:
+         return -1000
+
+      pelletsLeft = 0
+      nearest = 100
+      for r in range(3):
+         for c in range(3):
+            if state.pellets[r, c]:
+               pelletsLeft = pelletsLeft + 1
+               d = distance(state.pacman, (r, c))
+               if d < nearest:
+                  nearets = d
+
+      score = pelletsLeft * (-10)
+      score = score - nearest
+
+      if distance(state.pacman, state.ghost) == 1:
+         score = score - 500
+
+      return score 
+   
 
 
    
