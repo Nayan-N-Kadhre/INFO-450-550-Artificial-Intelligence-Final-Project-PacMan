@@ -103,6 +103,17 @@ class PacMan:
             legalMoves.append(move)
       return legalMoves
 
+   def getSuccessor(self, move, state):
+      r, c  = self.MOVES[move]
+      pacman, ghost, pellets = state.pacman, state.shost, state.pellets
+      if state.turn == 0:
+         pacman = (pacman[0] + r, pacman[1] + c)
+         pellets = pellets.copy()
+         pellets[pacman] = False 
+      else:
+         ghost = (ghost[0] + r, ghost[1] + c)
+      return PacManState(pacman, ghost, pellets, 1 - state.turn, state.moves + 1)     
+
    
 
 
