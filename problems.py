@@ -112,7 +112,23 @@ class PacMan:
          pellets[pacman] = False 
       else:
          ghost = (ghost[0] + r, ghost[1] + c)
-      return PacManState(pacman, ghost, pellets, 1 - state.turn, state.moves + 1)     
+      return PacManState(pacman, ghost, pellets, 1 - state.turn, state.moves + 1)
+
+   def doMove(self, move):
+      self.state = self.getSuccessor(move, self.state)
+
+   def getWinner(self, state = None):
+      if state is None:
+         state = self.state
+      if state.pacman == state.ghost:
+         return 1
+      if not state.pellets.any():
+         return 0
+      return -1
+
+   def isTerminal(self, state = None):
+      return self.getWinner(state) != -1
+
 
    
 
