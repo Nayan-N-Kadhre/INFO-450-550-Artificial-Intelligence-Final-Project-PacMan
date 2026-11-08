@@ -64,12 +64,15 @@ class PacMan:
       pellets[ghost] = False
       self.state = PacManState(pacman, ghost, pellets)
 
+   def ticks(self):
+      return self.state.move
+
    def showState(self, ms=600, state=None):
 
       if state is None:
          state = self.state
       
-      img = np.zeros(360, 360, 3)
+      img = np.zeros((360, 360, 3))
       
       for i in range(1, 3):
          cv2.line(img, (i * 120, 0), (i * 120, 360), (255, 255, 255), 2)
@@ -107,7 +110,7 @@ class PacMan:
 
    def getSuccessor(self, move, state):
       r, c  = self.MOVES[move]
-      pacman, ghost, pellets = state.pacman, state.shost, state.pellets
+      pacman, ghost, pellets = state.pacman, state.ghost, state.pellets
       if state.turn == 0:
          pacman = (pacman[0] + r, pacman[1] + c)
          pellets = pellets.copy()
